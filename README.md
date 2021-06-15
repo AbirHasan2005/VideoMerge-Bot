@@ -19,6 +19,9 @@ Just Press Below Button to Deploy!
 ### Support Group:
 <a href="https://t.me/linux_repo"><img src="https://img.shields.io/badge/Telegram-Join%20Telegram%20Group-blue.svg?logo=telegram"></a>
 
+### Video Tutorial:
+[![YouTube](https://img.shields.io/badge/YouTube-Video%20Tutorial-red?logo=youtube)](https://www.youtube.com/watch?v=m4r_SHySGYo)
+
 ### Follow on:
 <p align="left">
 <a href="https://github.com/AbirHasan2005"><img src="https://img.shields.io/badge/GitHub-Follow%20on%20GitHub-inactive.svg?logo=github"></a>
