@@ -3,8 +3,8 @@ This is very simple Telegram Videos Merge Bot by [@AbirHasan2005](https://t.me/A
 
 ## Features:
 - Merge Multiple Videos.
-- User-Friendly.
-- Easy to Use.
+- Permanent Custom Thumbnail Support.
+- Broadcast To All Started Users.
 - 2GB+ Files will Upload to Streamtape.
 - Others check by your own feeling lazy to describe.
 
