@@ -16,7 +16,8 @@ async def OpenSettings(m: Message, user_id: int):
                     [InlineKeyboardButton(f"Generate Sample Video {'✅' if (await db.get_generate_sample_video(id=user_id)) is True else '❌'}", callback_data="triggerGenSample")],
                     [InlineKeyboardButton(f"Generate Screenshots {'✅' if (await db.get_generate_ss(id=user_id)) is True else '❌'}", callback_data="triggerGenSS")],
                     [InlineKeyboardButton("Show Thumbnail", callback_data="showThumbnail")],
-                    [InlineKeyboardButton("Show Queue Files", callback_data="showQueueFiles")]
+                    [InlineKeyboardButton("Show Queue Files", callback_data="showQueueFiles")],
+                    [InlineKeyboardButton("Close", callback_data="closeMeh")]
                 ]
             )
         )
