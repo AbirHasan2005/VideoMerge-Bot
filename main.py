@@ -59,7 +59,8 @@ async def start_handler(bot: Client, m: Message):
                 [InlineKeyboardButton("Developer - @AbirHasan2005", url="https://t.me/AbirHasan2005")],
                 [InlineKeyboardButton("Support Group", url="https://t.me/linux_repo"),
                  InlineKeyboardButton("Bots Channel", url="https://t.me/Discovery_Updates")],
-                [InlineKeyboardButton("Open Settings", callback_data="openSettings")]
+                [InlineKeyboardButton("Open Settings", callback_data="openSettings")],
+                [InlineKeyboardButton("Close", callback_data="closeMeh")]
             ]
         )
     )
@@ -72,6 +73,9 @@ async def videos_handler(bot: Client, m: Message):
     if Fsub == 400:
         return
     media = m.video or m.document
+    if media.file_name is None:
+        await m.reply_text("File Name Not Found!")
+        return
     if media.file_name.rsplit(".", 1)[-1].lower() not in ["mp4", "mkv", "webm"]:
         await m.reply_text("This Video Format not Allowed!\nOnly send MP4 or MKV or WEBM.", quote=True)
         return
@@ -525,7 +529,6 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                             else:
                                 photo_album.append(InputMediaPhoto(media=str(image)))
                             i += 1
-                print(photo_album)
                 await bot.send_media_group(
                     chat_id=cb.from_user.id,
                     media=photo_album
@@ -588,6 +591,8 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         await delete_all(root=f"{Config.DOWN_PATH}/{cb.from_user.id}/")
         QueueDB.update({cb.from_user.id: []})
         FormtDB.update({cb.from_user.id: None})
-
+    elif "closeMeh" in cb.data:
+        await cb.message.delete(True)
+        await cb.message.reply_to_message.delete(True)
 
 NubBot.run()
