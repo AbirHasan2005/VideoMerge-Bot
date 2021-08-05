@@ -199,6 +199,7 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
         )
         duration = 0
         list_message_ids = QueueDB.get(cb.from_user.id, None)
+        list_message_ids.sort()
         input_ = f"{Config.DOWN_PATH}/{cb.from_user.id}/input.txt"
         if list_message_ids is None:
             await cb.answer("Queue Empty!", show_alert=True)
@@ -251,7 +252,11 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 FormtDB.update({cb.from_user.id: None})
                 await cb.message.edit("Video Corrupted!\nTry Again Later.")
                 return
-        vid_list = list(set(vid_list))
+        __cache = list()
+        for i in range(len(vid_list)):
+            if vid_list[i] not in __cache:
+                __cache.append(vid_list[i])
+        vid_list = __cache
         if (len(vid_list) < 2) and (len(vid_list) > 0):
             await cb.message.edit("There only One Video in Queue!\nMaybe you sent same video multiple times.")
             return
@@ -319,11 +324,6 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
     elif "refreshFsub" in cb.data:
         if Config.UPDATES_CHANNEL:
             try:
-                invite_link = await bot.create_chat_invite_link(chat_id=(int(Config.UPDATES_CHANNEL) if Config.UPDATES_CHANNEL.startswith("-100") else Config.UPDATES_CHANNEL))
-            except FloodWait as e:
-                await asyncio.sleep(e.x)
-                invite_link = await bot.create_chat_invite_link(chat_id=(int(Config.UPDATES_CHANNEL) if Config.UPDATES_CHANNEL.startswith("-100") else Config.UPDATES_CHANNEL))
-            try:
                 user = await bot.get_chat_member(chat_id=(int(Config.UPDATES_CHANNEL) if Config.UPDATES_CHANNEL.startswith("-100") else Config.UPDATES_CHANNEL), user_id=cb.message.chat.id)
                 if user.status == "kicked":
                     await cb.message.edit(
@@ -333,6 +333,11 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                     )
                     return
             except UserNotParticipant:
+                try:
+                    invite_link = await bot.create_chat_invite_link(chat_id=(int(Config.UPDATES_CHANNEL) if Config.UPDATES_CHANNEL.startswith("-100") else Config.UPDATES_CHANNEL))
+                except FloodWait as e:
+                    await asyncio.sleep(e.x)
+                    invite_link = await bot.create_chat_invite_link(chat_id=(int(Config.UPDATES_CHANNEL) if Config.UPDATES_CHANNEL.startswith("-100") else Config.UPDATES_CHANNEL))
                 await cb.message.edit(
                     text="**You Still Didn't Join ☹️, Please Join My Updates Channel to use this Bot!**\n\nDue to Overload, Only Channel Subscribers can use the Bot!",
                     reply_markup=InlineKeyboardMarkup(
