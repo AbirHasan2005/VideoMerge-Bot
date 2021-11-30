@@ -47,7 +47,9 @@
             "value": "5"
         },
         "SESSION_NAME": {
-            "description": "Bot's Session Name."
+            "description": "Any Session Name of Bot",
+            "required": "False",
+            "value": "Heroku-Bot"
         },
         "STREAMTAPE_API_USERNAME": {
             "description": "Your Streamtape API Username for Uploading to Streamtape if File size is bigger than 2GB."
