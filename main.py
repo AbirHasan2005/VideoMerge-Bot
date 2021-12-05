@@ -28,7 +28,7 @@ from helpers.forcesub import ForceSub
 from hachoir.metadata import extractMetadata
 from helpers.display_progress import progress_for_pyrogram, humanbytes
 from helpers.broadcast import broadcast_handler
-from helpers.ffmpeg import MergeVideo, generate_screen_shots, cult_small_video
+from helpers.ffmpeg import MergeVideo, generate_screen_shots, cult_small_video, get_audio_codec
 from asyncio.exceptions import TimeoutError
 from pyrogram.errors import FloodWait, UserNotParticipant, MessageNotModified
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message, CallbackQuery, InputMediaPhoto
@@ -237,7 +237,14 @@ async def callback_handlers(bot: Client, cb: CallbackQuery):
                 if file_dl_path.rsplit('.', 1)[1].lower() != "mp4":
                     os.system(f"ffmpeg -i {file_dl_path} -c copy {file_dl_path.rsplit('.', 1)[0]}.mp4")
                     file_dl_path = file_dl_path.rsplit('.', 1)[0] + ".mp4"
-                os.system(f"ffmpeg -i {file_dl_path} -c:v copy -bsf:v h264_mp4toannexb -c:a aac {file_dl_path.rsplit('.', 1)[0]}.ts")
+                audio_codec = get_audio_codec(file_dl_path)
+                if audio_codec == []:
+                    audio_opts = ""
+                elif audio_codec[0] == "aac":
+                    audio_opts = "-c:a copy"
+                else:
+                    audio_opts = "-c:a aac"
+                os.system(f"ffmpeg -i {file_dl_path} -c:v copy -bsf:v h264_mp4toannexb {audio_opts} {file_dl_path.rsplit('.', 1)[0]}.ts")
                 file_dl_path = file_dl_path.rsplit('.', 1)[0] + ".ts"
             except Exception as downloadErr:
                 print(f"Failed to Download File!\nError: {downloadErr}")
