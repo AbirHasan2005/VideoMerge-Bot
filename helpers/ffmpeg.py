@@ -5,6 +5,7 @@ import os
 import time
 from configs import Config
 from pyrogram.types import Message
+from subprocess import check_output
 
 
 async def MergeVideo(input_file: str, vid_list: str, message: Message, format_: str):
@@ -124,3 +125,21 @@ async def generate_screen_shots(video_file, output_directory, no_of_photos, dura
         current_ttl += ttl_step
         images.append(video_thumbnail)
     return images
+
+
+def get_audio_codec(filepath):
+    output = check_output(
+        [
+            "ffprobe",
+            "-v",
+            "error",
+            "-select_streams",
+            "a:0",
+            "-show_entries",
+            "stream=codec_name,codec_tag_string",
+            "-of",
+            "default=nokey=1:noprint_wrappers=1",
+            filepath,
+        ]
+    )
+    return output.decode("utf-8").split()
