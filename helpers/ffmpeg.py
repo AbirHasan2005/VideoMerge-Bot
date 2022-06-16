@@ -7,28 +7,25 @@ from configs import Config
 from pyrogram.types import Message
 
 
-async def MergeVideo(input_file: str, user_id: int, message: Message, format_: str):
+async def MergeVideo(input_file: str, vid_list: str, message: Message, format_: str):
     """
     This is for Merging Videos Together!
-
-    :param input_file: input.txt file's location.
+    :param vid_list: Pass Videos List.
     :param user_id: Pass user_id as integer.
     :param message: Pass Editable Message for Showing FFmpeg Progress.
     :param format_: Pass File Extension.
     :return: This will return Merged Video File Path
     """
 
-    output_vid = f"{Config.DOWN_PATH}/{str(user_id)}/[@AbirHasan2005]_Merged.{format_.lower()}"
+    output_vid = f"{Config.DOWN_PATH}/{str(user_id)}/[@AbirHasan2005]_Merged.mp4"
     file_generator_command = [
         "ffmpeg",
-        "-f",
-        "concat",
-        "-safe",
-        "0",
         "-i",
-        input_file,
+        "concat:" + vid_list,
         "-c",
         "copy",
+        "-bsf:a",
+        "aac_adtstoasc",
         output_vid
     ]
     process = None
@@ -50,6 +47,14 @@ async def MergeVideo(input_file: str, user_id: int, message: Message, format_: s
     t_response = stdout.decode().strip()
     print(e_response)
     print(t_response)
+    await asyncio.sleep(2)
+    if format_.lower() != "mp4":
+        try:
+            os.system(f"ffmpeg -i {output_vid} -c copy {output_vid.rsplit('ts', 1)[0]}{format_.lower()}")
+            output_vid = output_vid.rsplit('ts', 1)[0] + format_.lower()
+        except Exception as e:
+            print(e)
+            pass
     if os.path.lexists(output_vid):
         return output_vid
     else:
