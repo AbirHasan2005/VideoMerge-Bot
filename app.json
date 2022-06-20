@@ -7,7 +7,7 @@
         "merge",
         "bot"
     ],
-    "repository": "https://github.com/AbirHasan2005/VideoMerge-Bot",
+    "repository": "https://github.com/Kanishdevan/VideoMerge-Bot",
     "website": "https://telegram.dog/AbirHasan2005",
     "success_url": "https://t.me/AH_VideoMergeBot",
     "env": {
