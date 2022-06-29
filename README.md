@@ -14,7 +14,7 @@ This is very simple Telegram Videos Merge Bot by [@Jethalal_2020](https://t.me/A
 ### Deploy to Heroku:
 Just Press Below Button to Deploy!
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template= https://github.com/Jethalal-Pyro/VideoMerge-Bot)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Jethalal-Pyro/VideoMerge-Bot)
 
 ### Support Group:
 <a href="https://t.me/linux_repo"><img src="https://img.shields.io/badge/Telegram-Join%20Telegram%20Group-blue.svg?logo=telegram"></a>
