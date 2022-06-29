@@ -1,4 +1,4 @@
-# (c) @AbirHasan2005
+# (c) @Jethalal_2020
 
 import os
 
@@ -16,7 +16,7 @@ class Config(object):
     STREAMTAPE_API_USERNAME = os.environ.get("STREAMTAPE_API_USERNAME")
     STREAMTAPE_API_PASS = os.environ.get("STREAMTAPE_API_PASS")
     MONGODB_URI = os.environ.get("MONGODB_URI")
-    BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
+    BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", True))
     BOT_OWNER = int(os.environ.get("BOT_OWNER", 2079695935)
 
     START_TEXT = """
