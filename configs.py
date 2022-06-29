@@ -11,7 +11,7 @@ class Config(object):
     UPDATES_CHANNEL = os.environ.get("UPDATES_CHANNEL")
     LOG_CHANNEL = os.environ.get("LOG_CHANNEL")
     DOWN_PATH = os.environ.get("DOWN_PATH", "./downloads")
-    TIME_GAP = int(os.environ.get("TIME_GAP", 5))
+    TIME_GAP = int(os.environ.get("TIME_GAP", ))
     MAX_VIDEOS = int(os.environ.get("MAX_VIDEOS", 5))
     STREAMTAPE_API_USERNAME = os.environ.get("STREAMTAPE_API_USERNAME")
     STREAMTAPE_API_PASS = os.environ.get("STREAMTAPE_API_PASS")
